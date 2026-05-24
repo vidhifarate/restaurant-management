@@ -7,7 +7,7 @@ import { AuthResponses } from "./auth.responses.js";
 import {compare} from "bcrypt"
 
 
-export const login = async (credentials: Pick<User, "email" | "password" | "role">) => {
+export const login = async (credentials: Pick<User, "email" | "password" | "role_id">) => {
   try {
     console.log("in tryyyyyyy")
     const user = await userServices.findOne({ email: credentials.email });
@@ -22,8 +22,8 @@ export const login = async (credentials: Pick<User, "email" | "password" | "role
     
     if (!didMatch) throw AuthResponses.INVALID_CREDENTIALS;
 
-    const accessToken =await generateAccessToken(user.role);
-    const refreshToken = await generateRefreshToken(user.role
+    const accessToken =await generateAccessToken(user.role_id);
+    const refreshToken = await generateRefreshToken(user.role_id
     );
 
     const { password, ...userWithoutPassword } = user.toJSON();

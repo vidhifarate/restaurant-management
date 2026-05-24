@@ -10,7 +10,7 @@ export const findOne=(user:Partial<User>)=> Users.findOne({where:user});
 
 
 export const findAllByRole=(role:string)=> Users.findAll({where:{
-    role:{
+    role_id:{
       [Op.iLike]:`%${role}%`
     }}});
 
@@ -55,7 +55,8 @@ const findAll=(user:Partial<User>)=>{
       where:{
         name:{
           [Op.iLike]:`%${user.name}%`
-        },role:user.role
+        },
+        role_id:user.role_id
       },
       order:[['name','ASC']],
       limit:1

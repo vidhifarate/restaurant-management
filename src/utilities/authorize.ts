@@ -118,7 +118,7 @@ const authorize = (requiredPermission: string) => {
         include: [
           {
             model: Roles,
-            as: "role",
+            as: "roleDetails",
             include: [
               {
                 model: Permissions,
@@ -129,7 +129,7 @@ const authorize = (requiredPermission: string) => {
         ]
       });
 
-      if (!userWithPermissions || !userWithPermissions.role) {
+      if (!userWithPermissions || !userWithPermissions.role_id) {
         return res.status(403).send({ message: "Unauthorized access: user context invalid" });
       }
 
@@ -139,7 +139,7 @@ const authorize = (requiredPermission: string) => {
       }
 
       // Extract raw text permission identifier strings from joined association records
-      const assignedPermissions = (userWithPermissions.role as any).Permissions.map(
+      const assignedPermissions = (userWithPermissions.roleDetails as any).Permissions.map(
         (perm: any) => perm.name
       );
 
@@ -148,7 +148,7 @@ const authorize = (requiredPermission: string) => {
         // Safe context attachment path: attach profile object data onto request elements cleanly
         (req as any).user = {
           id: userWithPermissions.id,
-          role: userWithPermissions.role,
+          role_id: userWithPermissions.role_id,
           restaurant_id: userWithPermissions.restaurant_id,
           branch_id: userWithPermissions.branch_id
         };

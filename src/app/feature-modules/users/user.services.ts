@@ -104,8 +104,8 @@ export const sort =async(user:Partial<User>)=>{
 
        result = await userRepo.findAll(user);
     }
-    if(user.role){
-        result = await userRepo.findAllByRole(user.role);
+    if(user.role_id){
+        result = await userRepo.findAllByRole(user.role_id);
     }
     if(Object.keys(result).length===0)return UserResponses.USER_NOT_FOUND;
     const searchResult = [];

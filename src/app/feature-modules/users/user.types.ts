@@ -7,7 +7,7 @@ export const Zuser = z.object({
   name: z.string(),
   email: z.string().email(),
   password: z.string(),
-  role: z.enum(["admin", "restaurantOwner", "manager", "kitchenStaff", "serviceStaff"]),
+  role_id: z.string().uuid(),
   restaurant_id: z.string().uuid(),
   branch_id: z.string().uuid(),
   profile_picture:z.string().optional(),

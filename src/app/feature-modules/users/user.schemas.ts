@@ -11,7 +11,7 @@ export class Users extends Model<InferAttributes<Users>, InferCreationAttributes
   declare name: string;
   declare email: string;
   declare password: string;
-  declare role: ForeignKey<Roles["id"]>;
+  declare role_id: ForeignKey<Roles["id"]>;
   declare restaurant_id: ForeignKey<Branches["id"]>&CreationOptional<string>;
   declare branch_id: ForeignKey<Branches["id"]>&CreationOptional<string>;
   declare profile_picture:CreationOptional<string>;
@@ -36,7 +36,7 @@ Users.init({
     type: DataTypes.STRING,
     allowNull: false
   },
-  role: {
+  role_id: {
     type: DataTypes.UUID,
     allowNull: false,
     references: { model: Roles, key: 'id' }

@@ -8,6 +8,7 @@ import { ResponseHandler } from "../../../utilities/response-handler.js";
 import {upload} from "../../../utilities/multer-middleware.js";
 import { th } from "zod/locales";
 import type { User } from "./user.types.js";
+import authorize from "../../../utilities/authorize.js";
 
 
 
@@ -16,7 +17,7 @@ const router = Router();
 
 
 
-router.post("/add",upload.single('profile_picture') ,body(ZuserCreate)  ,async (req, res, next) => {
+router.post("/add",authorize("create:user"),upload.single('profile_picture') ,body(ZuserCreate)  ,async (req, res, next) => {
   try {
   
     const userPassword = req.body.password;
